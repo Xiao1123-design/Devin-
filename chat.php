@@ -9,6 +9,15 @@ if (!isset($_SESSION['user_id']) || !isset($_GET['user'])) {
 
 $other_user_id = intval($_GET['user']);
 
+// Prevent self-messaging
+if ($other_user_id === $_SESSION['user_id']) {
+    echo "<script>
+        alert('不能与自己聊天');
+        window.location.href = 'messages.php';
+    </script>";
+    exit();
+}
+
 // Fetch other user's details
 $user_sql = "SELECT username FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($user_sql);
@@ -52,7 +61,42 @@ $messages = $stmt->get_result();
     <?php include 'includes/back_button.php'; ?>
     <main class="chat-container">
         <div class="chat-header">
+            <img src="<?php echo $other_user['avatar_path'] ?? 'images/default-avatar.png'; ?>" 
+                 alt="<?php echo htmlspecialchars($other_user['username']); ?>" 
+                 class="chat-avatar"
+                 onclick="showUserProfile(<?php echo $other_user_id; ?>)"
+                 title="点击查看用户资料">
             <h2>Chat with <?php echo htmlspecialchars($other_user['username']); ?></h2>
+        </div>
+        
+        <!-- User Profile Modal -->
+        <div id="userProfileModal" class="modal">
+            <div class="profile-content">
+                <span class="close" onclick="closeUserProfile()">&times;</span>
+                <div class="profile-header">
+                    <img id="profileAvatar" src="" alt="User Avatar">
+                    <h2 id="profileUsername"></h2>
+                    <span id="profileUserType" class="user-type-badge"></span>
+                </div>
+                <div class="profile-details">
+                    <div class="detail-group">
+                        <label>邮箱</label>
+                        <p id="profileEmail"></p>
+                    </div>
+                    <div class="detail-group">
+                        <label>年龄</label>
+                        <p id="profileAge"></p>
+                    </div>
+                    <div class="detail-group">
+                        <label>国籍</label>
+                        <p id="profileNationality"></p>
+                    </div>
+                    <div class="detail-group">
+                        <label>地址</label>
+                        <p id="profileAddress"></p>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="messages-list" id="messages-list">
@@ -105,6 +149,38 @@ $messages = $stmt->get_result();
     <?php include 'includes/footer.php'; ?>
     
     <script>
+        // Profile view functionality
+        function showUserProfile(userId) {
+            fetch(`get_user_profile.php?user_id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('profileAvatar').src = data.user.avatar_path || 'images/default-avatar.png';
+                        document.getElementById('profileUsername').textContent = data.user.username;
+                        document.getElementById('profileEmail').textContent = data.user.email;
+                        document.getElementById('profileAge').textContent = data.user.age;
+                        document.getElementById('profileNationality').textContent = data.user.nationality;
+                        document.getElementById('profileAddress').textContent = data.user.address;
+                        document.getElementById('profileUserType').textContent = data.user.user_type;
+                        document.getElementById('userProfileModal').style.display = 'block';
+                    } else {
+                        showAlert(data.message, 'error');
+                    }
+                })
+                .catch(() => showAlert('获取用户信息失败', 'error'));
+        }
+
+        function closeUserProfile() {
+            document.getElementById('userProfileModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('userProfileModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
         // Scroll to bottom of messages
         const messagesList = document.getElementById('messages-list');
         messagesList.scrollTop = messagesList.scrollHeight;

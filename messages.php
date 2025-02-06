@@ -65,8 +65,9 @@ $conversations = $stmt->get_result();
     <main class="messages-container">
         <div class="conversations-list">
             <?php while($conv = $conversations->fetch_assoc()): ?>
-                <a href="chat.php?user=<?php echo $conv['other_user_id']; ?>" 
-                   class="conversation-item">
+                <?php if ($conv['other_user_id'] !== $_SESSION['user_id']): ?>
+                    <a href="chat.php?user=<?php echo $conv['other_user_id']; ?>" 
+                       class="conversation-item">
                     <div class="conversation-info">
                         <h3><?php echo htmlspecialchars($conv['username']); ?></h3>
                         <p class="last-message">
@@ -76,7 +77,8 @@ $conversations = $stmt->get_result();
                     <span class="message-time">
                         <?php echo date('M j, g:i a', strtotime($conv['last_message_time'])); ?>
                     </span>
-                </a>
+                    </a>
+                <?php endif; ?>
             <?php endwhile; ?>
         </div>
         
