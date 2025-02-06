@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows > 0) {
         $existing_user = $result->fetch_assoc();
         if ($existing_user['username'] === $username) {
-            echo json_encode(['success' => false, 'message' => 'Username already exists']);
+            echo json_encode(['success' => false, 'message' => '用户名已被使用']);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Email already exists']);
+            echo json_encode(['success' => false, 'message' => '邮箱已被注册']);
         }
         exit();
     }
@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssss", $username, $email, $password, $user_type);
     
     if ($stmt->execute()) {
-        echo json_encode(['success' => true, 'message' => 'Registration successful! Please login']);
+        echo json_encode(['success' => true, 'message' => '注册成功！请登录']);
     } else {
-        echo json_encode(['success' => false, 'message' => 'Failed to create account. Please try again']);
+        echo json_encode(['success' => false, 'message' => '注册失败，请重试']);
     }
     
     $stmt->close();

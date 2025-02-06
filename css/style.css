@@ -184,3 +184,17 @@ p {
     margin-top: 1rem;
     color: var(--text-color);
 }
+
+.validation-status {
+    display: block;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.validation-status.valid {
+    color: var(--success-color);
+}
+
+.validation-status.invalid {
+    color: var(--error-color);
+}
