@@ -27,11 +27,24 @@ $hot_products = $conn->query($hot_products_sql);
     <title>Dashboard - ResellU</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/search.js"></script>
 </head>
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
     <main class="dashboard-main">
+        <div class="search-container">
+            <input type="text" id="globalSearch" placeholder="搜索商品..." onkeyup="handleSearch(event)">
+            <select id="categoryFilter" onchange="handleSearch()">
+                <option value="">所有分类</option>
+                <option value="Books">书籍</option>
+                <option value="Electronics">电子产品</option>
+                <option value="Furniture">家具</option>
+                <option value="Clothing">服装</option>
+                <option value="Sports">运动用品</option>
+                <option value="Other">其他</option>
+            </select>
+        </div>
         <section class="featured-section">
             <h2>Hot Products</h2>
             <div class="product-grid">

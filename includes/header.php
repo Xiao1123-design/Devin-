@@ -2,10 +2,11 @@
     <div class="header-content">
         <a href="dashboard.php" class="logo">ResellU</a>
         <nav class="main-nav">
-            <a href="browse.php">Browse</a>
-            <a href="requests.php">Requests</a>
-            <a href="donations.php">Donations</a>
-            <a href="messages.php">Messages</a>
+            <a href="dashboard.php">首页</a>
+            <a href="requests.php">请求</a>
+            <a href="donations.php">捐赠</a>
+            <a href="sell.php">卖东西</a>
+            <a href="profile.php">个人中心</a>
         </nav>
         <div class="user-menu">
             <a href="profile.php"><?php echo htmlspecialchars($_SESSION['username']); ?></a>
