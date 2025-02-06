@@ -57,6 +57,7 @@ $categories = $conn->query($categories_sql);
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="browse-container">
         <aside class="filters">
             <form action="browse.php" method="GET" class="search-form">

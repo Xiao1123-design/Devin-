@@ -24,6 +24,7 @@ $categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Sports', 'Other
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="sell-container">
         <div class="form-container">
             <h2>Sell an Item</h2>

@@ -27,6 +27,7 @@ $donations = $conn->query($donations_sql);
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="donations-container">
         <div class="donations-header">
             <h2>Donations Board</h2>

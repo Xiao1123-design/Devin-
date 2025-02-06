@@ -26,6 +26,7 @@ $user = $stmt->get_result()->fetch_assoc();
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="profile-container">
         <div class="profile-header">
             <h2>Profile Settings</h2>

@@ -49,6 +49,7 @@ $messages = $stmt->get_result();
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="chat-container">
         <div class="chat-header">
             <h2>Chat with <?php echo htmlspecialchars($other_user['username']); ?></h2>

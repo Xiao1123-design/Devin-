@@ -52,6 +52,7 @@ $reviews = $stmt->get_result();
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="product-container">
         <div class="product-details">
             <div class="product-image">

@@ -27,6 +27,7 @@ $requests = $conn->query($requests_sql);
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
+    <?php include 'includes/back_button.php'; ?>
     <main class="requests-container">
         <div class="requests-header">
             <h2>Request Board</h2>
