@@ -43,6 +43,8 @@ $messages = $stmt->get_result();
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/messages.css">
     <link rel="stylesheet" href="css/chat.css">
+    <link rel="stylesheet" href="css/alerts.css">
+    <script src="js/alerts.js"></script>
 </head>
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
@@ -65,11 +67,38 @@ $messages = $stmt->get_result();
             <?php endwhile; ?>
         </div>
         
-        <form class="message-form" action="send_message.php" method="POST">
+        <form class="message-form" id="messageForm" onsubmit="handleSendMessage(event)">
             <input type="hidden" name="receiver_id" value="<?php echo $other_user_id; ?>">
             <textarea name="message" placeholder="Type your message..." required></textarea>
             <button type="submit" class="btn-send">Send</button>
         </form>
+        
+        <script>
+        async function handleSendMessage(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('send_message.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    form.reset();
+                    // Refresh messages
+                    location.reload();
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'error');
+            }
+        }
+        </script>
     </main>
 
     <?php include 'includes/footer.php'; ?>
