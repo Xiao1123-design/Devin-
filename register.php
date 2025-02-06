@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - ResellU</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/alerts.css">
+    <script src="js/alerts.js"></script>
 </head>
 <body>
     <div class="login-container">

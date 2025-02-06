@@ -1,5 +1,6 @@
 <?php
 require_once 'config.php';
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $conn->real_escape_string($_POST['username']);
@@ -15,7 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $check_stmt->get_result();
     
     if ($result->num_rows > 0) {
-        header("Location: register.php?error=user_exists");
+        $existing_user = $result->fetch_assoc();
+        if ($existing_user['username'] === $username) {
+            echo json_encode(['success' => false, 'message' => 'Username already exists']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Email already exists']);
+        }
         exit();
     }
     
@@ -25,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssss", $username, $email, $password, $user_type);
     
     if ($stmt->execute()) {
-        header("Location: index.php?success=registration_complete");
+        echo json_encode(['success' => true, 'message' => 'Registration successful! Please login']);
     } else {
-        header("Location: register.php?error=registration_failed");
+        echo json_encode(['success' => false, 'message' => 'Failed to create account. Please try again']);
     }
     
     $stmt->close();

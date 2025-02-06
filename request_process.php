@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
+header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
@@ -18,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("issd", $_SESSION['user_id'], $title, $description, $expected_price);
     
     if ($stmt->execute()) {
-        header("Location: requests.php?success=request_posted");
+        echo json_encode(['success' => true, 'message' => 'Request posted successfully']);
     } else {
-        header("Location: requests.php?error=post_failed");
+        echo json_encode(['success' => false, 'message' => 'Failed to post request']);
     }
     
     $stmt->close();

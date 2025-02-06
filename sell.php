@@ -18,6 +18,8 @@ $categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Sports', 'Other
     <title>Sell Item - ResellU</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sell.css">
+    <link rel="stylesheet" href="css/alerts.css">
+    <script src="js/alerts.js"></script>
 </head>
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
@@ -26,7 +28,7 @@ $categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Sports', 'Other
         <div class="form-container">
             <h2>Sell an Item</h2>
             
-            <form action="sell_process.php" method="POST" enctype="multipart/form-data">
+            <form id="sellForm" onsubmit="handleSell(event)" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" required>
@@ -91,6 +93,28 @@ $categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Sports', 'Other
                 reader.readAsDataURL(file);
             }
         });
+        async function handleSell(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('sell_process.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    setTimeout(() => window.location.href = 'dashboard.php', 1500);
+                } else {
+                    showAlert(data.message, 'error');
+                }
+            } catch (error) {
+                showAlert('An error occurred. Please try again.', 'error');
+            }
+        }
     </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $conn->real_escape_string($_POST['username']);
@@ -17,13 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
-            header("Location: dashboard.php");
+            echo json_encode(['success' => true, 'message' => 'Login successful']);
             exit();
         } else {
-            header("Location: index.php?error=invalid_credentials");
+            echo json_encode(['success' => false, 'message' => 'Invalid password']);
+            exit();
         }
     } else {
-        header("Location: index.php?error=invalid_credentials");
+        echo json_encode(['success' => false, 'message' => 'Username not found']);
+        exit();
     }
     
     $stmt->close();

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config.php';
+header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST["submit"])) {
         $check = getimagesize($_FILES["image"]["tmp_name"]);
         if($check === false) {
-            header("Location: sell.php?error=not_image");
+            echo json_encode(['success' => false, 'message' => 'File uploaded is not an image']);
             exit();
         }
     }
@@ -55,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("issdss", $_SESSION['user_id'], $title, $category, $price, $condition, $description, $target_file);
         
         if ($stmt->execute()) {
-            header("Location: dashboard.php?success=product_listed");
+            echo json_encode(['success' => true, 'message' => 'Product listed successfully']);
         } else {
-            header("Location: sell.php?error=db_error");
+            echo json_encode(['success' => false, 'message' => 'Failed to list product']);
         }
     } else {
         header("Location: sell.php?error=upload_failed");
