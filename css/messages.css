@@ -17,11 +17,33 @@
 .conversation-item {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.2rem;
     border-bottom: 1px solid var(--light-gray);
     text-decoration: none;
     color: var(--text-color);
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.conversation-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.conversation-item:hover {
+    background: var(--beige);
+}
+
+.conversation-item:hover::before {
+    opacity: 1;
 }
 
 .conversation-item:hover {

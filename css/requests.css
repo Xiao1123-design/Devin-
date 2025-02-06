@@ -24,10 +24,31 @@
 
 .request-card {
     background: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.2s;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--light-gray);
+    position: relative;
+}
+
+.request-card::before {
+    content: '🔍 Wanted';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary-gradient);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.request-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border-color: var(--primary-light);
 }
 
 .request-card:hover {
