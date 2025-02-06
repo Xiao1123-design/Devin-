@@ -1,0 +1,59 @@
+.messages-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    height: calc(100vh - 200px);
+}
+
+.conversations-list {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.conversation-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+    text-decoration: none;
+    color: var(--text-color);
+    transition: background-color 0.2s;
+}
+
+.conversation-item:hover {
+    background-color: var(--beige);
+}
+
+.conversation-info h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.last-message {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.chat-placeholder {
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    opacity: 0.6;
+}
