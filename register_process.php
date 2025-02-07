@@ -11,9 +11,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Check if username or email already exists
     $check_sql = "SELECT * FROM users WHERE username = ? OR email = ?";
     $check_stmt = $conn->prepare($check_sql);
-    $check_stmt->bind_param("ss", $username, $email);
-    $check_stmt->execute();
+    if (!$check_stmt) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $conn->error]);
+        exit();
+    }
+
+    if (!$check_stmt->bind_param("ss", $username, $email)) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $check_stmt->error]);
+        exit();
+    }
+
+    if (!$check_stmt->execute()) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $check_stmt->error]);
+        exit();
+    }
+
     $result = $check_stmt->get_result();
+    if ($result === false) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $check_stmt->error]);
+        exit();
+    }
     
     if ($result->num_rows > 0) {
         $existing_user = $result->fetch_assoc();
@@ -28,7 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Insert new user
     $sql = "INSERT INTO users (username, email, password, user_type) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $username, $email, $password, $user_type);
+    if (!$stmt) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $conn->error]);
+        exit();
+    }
+
+    if (!$stmt->bind_param("ssss", $username, $email, $password, $user_type)) {
+        echo json_encode(['success' => false, 'message' => '注册失败：' . $stmt->error]);
+        exit();
+    }
     
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => '注册成功！请登录']);

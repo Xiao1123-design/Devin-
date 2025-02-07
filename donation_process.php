@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Handle image upload if provided
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $target_dir = "uploads/";
+        $target_dir = UPLOAD_PATH . "uploads/";
         if (!file_exists($target_dir)) {
             mkdir($target_dir, 0777, true);
         }

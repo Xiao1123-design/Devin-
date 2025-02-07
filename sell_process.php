@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $description = $conn->real_escape_string($_POST['description']);
     
     // Handle image upload
-    $target_dir = "uploads/";
+    $target_dir = UPLOAD_PATH . "uploads/";
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
     }
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file_extension = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
     $file_name = uniqid() . '.' . $file_extension;
     $target_file = $target_dir . $file_name;
+    $image_url = UPLOAD_URL . "uploads/" . $file_name;
     
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "INSERT INTO products (seller_id, title, category, price, condition_status, description, image_path) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("issdss", $_SESSION['user_id'], $title, $category, $price, $condition, $description, $target_file);
+        $stmt->bind_param("issdss", $_SESSION['user_id'], $title, $category, $price, $condition, $description, $image_url);
         
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Product listed successfully']);

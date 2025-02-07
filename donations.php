@@ -14,6 +14,9 @@ $donations_sql = "SELECT d.*, u.username, u.user_type
                  WHERE d.status = 'available' 
                  ORDER BY d.created_at DESC";
 $donations = $conn->query($donations_sql);
+if (!$donations) {
+    die("Query failed: " . $conn->error);
+}
 
 // Fetch donation requests
 $requests_sql = "SELECT r.*, u.username, u.user_type 
@@ -22,6 +25,9 @@ $requests_sql = "SELECT r.*, u.username, u.user_type
                 WHERE r.status = 'active' 
                 ORDER BY r.created_at DESC";
 $requests = $conn->query($requests_sql);
+if (!$requests) {
+    die("Query failed: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +39,7 @@ $requests = $conn->query($requests_sql);
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/donations.css">
 </head>
-<body class="auth-page">
+<body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
     <?php include 'includes/back_button.php'; ?>

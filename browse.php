@@ -26,23 +26,41 @@ if (!empty($category)) {
 $sql .= " GROUP BY p.product_id ORDER BY p.created_at DESC";
 
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
 
 if (!empty($search) && !empty($category)) {
     $search_param = "%$search%";
-    $stmt->bind_param("sss", $search_param, $search_param, $category);
+    if (!$stmt->bind_param("sss", $search_param, $search_param, $category)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
 } elseif (!empty($search)) {
     $search_param = "%$search%";
-    $stmt->bind_param("ss", $search_param, $search_param);
+    if (!$stmt->bind_param("ss", $search_param, $search_param)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
 } elseif (!empty($category)) {
-    $stmt->bind_param("s", $category);
+    if (!$stmt->bind_param("s", $category)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
 }
 
-$stmt->execute();
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $products = $stmt->get_result();
+if ($products === false) {
+    die("Getting result failed: " . $stmt->error);
+}
 
 // Get categories
 $categories_sql = "SELECT DISTINCT category FROM products ORDER BY category";
 $categories = $conn->query($categories_sql);
+if ($categories === false) {
+    die("Query failed: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>

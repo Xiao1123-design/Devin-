@@ -24,7 +24,7 @@ $requests = $conn->query($requests_sql);
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/requests.css">
 </head>
-<body class="auth-page">
+<body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
     <?php include 'includes/back_button.php'; ?>

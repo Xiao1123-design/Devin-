@@ -5,10 +5,27 @@ require_once '../config.php';
 // Check if user is admin
 $admin_sql = "SELECT user_type FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($admin_sql);
-$stmt->bind_param("i", $_SESSION['user_id']);
-$stmt->execute();
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("i", $_SESSION['user_id'])) {
+    die("Binding parameters failed: " . $stmt->error);
+}
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
+if ($result === false) {
+    die("Getting result failed: " . $stmt->error);
+}
+
 $user = $result->fetch_assoc();
+if ($user === null) {
+    die("User not found");
+}
 
 if (!isset($_SESSION['user_id']) || $user['user_type'] !== 'admin') {
     header("Location: ../index.php");
@@ -27,7 +44,13 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['user_
     
     $sql = "DELETE FROM users WHERE user_id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $user_id);
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    if (!$stmt->bind_param("i", $user_id)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
     
     if ($stmt->execute()) {
         header("Location: index.php?success=user_deleted");
@@ -47,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if username or email already exists
     $check_sql = "SELECT user_id FROM users WHERE (username = ? OR email = ?) AND user_id != ?";
     $check_stmt = $conn->prepare($check_sql);
-    $check_id = $user_id ?? 0;
+    $check_id = isset($user_id) ? $user_id : 0;
     $check_stmt->bind_param("ssi", $username, $email, $check_id);
     $check_stmt->execute();
     $check_result = $check_stmt->get_result();

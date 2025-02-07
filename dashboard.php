@@ -17,6 +17,24 @@ $hot_products_sql = "SELECT p.*, u.username, COUNT(r.review_id) as review_count,
                      ORDER BY review_count DESC 
                      LIMIT 6";
 $hot_products = $conn->query($hot_products_sql);
+if ($hot_products === false) {
+    die("Query failed: " . $conn->error);
+}
+
+// Prepare statement for category products
+$cat_products_sql = "SELECT p.*, u.username 
+                    FROM products p 
+                    JOIN users u ON p.seller_id = u.user_id 
+                    WHERE p.status = 'available' AND p.category = ?
+                    ORDER BY p.created_at DESC LIMIT 4";
+$stmt = $conn->prepare($cat_products_sql);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("s", $category['category'])) {
+    die("Binding parameters failed: " . $stmt->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -69,6 +87,9 @@ $hot_products = $conn->query($hot_products_sql);
         // Fetch products by category
         $categories_sql = "SELECT DISTINCT category FROM products WHERE status = 'available'";
         $categories = $conn->query($categories_sql);
+if (!$categories) {
+    die("Query failed: " . $conn->error);
+}
         ?>
 
         <section class="category-section">
@@ -81,9 +102,17 @@ $hot_products = $conn->query($hot_products_sql);
                                    WHERE p.status = 'available' AND p.category = ?
                                    ORDER BY p.created_at DESC LIMIT 4";
                 $stmt = $conn->prepare($cat_products_sql);
+                if (!$stmt) {
+                    die("Prepare failed: " . $conn->error);
+                }
                 $stmt->bind_param("s", $category['category']);
-                $stmt->execute();
+                if (!$stmt->execute()) {
+                    die("Execute failed: " . $stmt->error);
+                }
                 $cat_products = $stmt->get_result();
+                if ($cat_products === false) {
+                    die("Get result failed: " . $stmt->error);
+                }
                 
                 if ($cat_products->num_rows > 0):
                 ?>
@@ -115,6 +144,9 @@ $hot_products = $conn->query($hot_products_sql);
                         WHERE r.status = 'active' 
                         ORDER BY r.created_at DESC LIMIT 4";
         $requests = $conn->query($requests_sql);
+if (!$requests) {
+    die("Query failed: " . $conn->error);
+}
         ?>
 
         <section class="requests-section">
@@ -142,6 +174,9 @@ $hot_products = $conn->query($hot_products_sql);
                          WHERE d.status = 'available' 
                          ORDER BY d.created_at DESC LIMIT 4";
         $donations = $conn->query($donations_sql);
+if (!$donations) {
+    die("Query failed: " . $conn->error);
+}
         ?>
 
         <section class="donations-section">

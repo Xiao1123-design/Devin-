@@ -15,9 +15,22 @@ $message_id = intval($data['message_id']);
 // Verify message belongs to current user
 $check_sql = "SELECT receiver_id FROM messages WHERE message_id = ?";
 $stmt = $conn->prepare($check_sql);
-$stmt->bind_param("i", $message_id);
-$stmt->execute();
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("i", $message_id)) {
+    die("Binding parameters failed: " . $stmt->error);
+}
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
+if ($result === false) {
+    die("Getting result failed: " . $stmt->error);
+}
 
 if ($result->num_rows === 0) {
     echo json_encode(['success' => false, 'message' => '消息不存在']);

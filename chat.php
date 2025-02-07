@@ -61,7 +61,7 @@ $messages = $stmt->get_result();
     <?php include 'includes/back_button.php'; ?>
     <main class="chat-container">
         <div class="chat-header">
-            <img src="<?php echo $other_user['avatar_path'] ?? 'images/default-avatar.png'; ?>" 
+            <img src="<?php echo isset($other_user['avatar_path']) ? $other_user['avatar_path'] : UPLOAD_URL . 'default-avatar.png'; ?>" 
                  alt="<?php echo htmlspecialchars($other_user['username']); ?>" 
                  class="chat-avatar"
                  onclick="showUserProfile(<?php echo $other_user_id; ?>)"
@@ -155,7 +155,7 @@ $messages = $stmt->get_result();
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        document.getElementById('profileAvatar').src = data.user.avatar_path || 'images/default-avatar.png';
+                        document.getElementById('profileAvatar').src = data.user.avatar_path || '/public/images/default-avatar.png';
                         document.getElementById('profileUsername').textContent = data.user.username;
                         document.getElementById('profileEmail').textContent = data.user.email;
                         document.getElementById('profileAge').textContent = data.user.age;

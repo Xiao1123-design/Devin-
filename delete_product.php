@@ -15,9 +15,22 @@ $product_id = intval($data['product_id']);
 // Verify product belongs to current user
 $check_sql = "SELECT seller_id, image_path FROM products WHERE product_id = ?";
 $stmt = $conn->prepare($check_sql);
-$stmt->bind_param("i", $product_id);
-$stmt->execute();
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("i", $product_id)) {
+    die("Binding parameters failed: " . $stmt->error);
+}
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
+if ($result === false) {
+    die("Getting result failed: " . $stmt->error);
+}
 
 if ($result->num_rows === 0) {
     echo json_encode(['success' => false, 'message' => '商品不存在']);
@@ -38,7 +51,13 @@ if ($product['image_path'] && file_exists($product['image_path'])) {
 // Delete the product
 $delete_sql = "DELETE FROM products WHERE product_id = ?";
 $stmt = $conn->prepare($delete_sql);
-$stmt->bind_param("i", $product_id);
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("i", $product_id)) {
+    die("Binding parameters failed: " . $stmt->error);
+}
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => '商品已删除']);

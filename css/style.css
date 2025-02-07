@@ -28,6 +28,99 @@
     margin-right: 8px;
 }
 
+.main-header {
+    background: var(--primary-gradient);
+    padding: 1rem 2rem;
+    color: var(--white);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--white);
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 2rem;
+}
+
+.main-nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.main-nav a:hover::after {
+    width: 80%;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.btn-logout {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-logout:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
 /* Main Colors - Purple Theme */
     --primary-dark: #4B0082;    /* Deep Purple */
     --primary-color: #663399;   /* Medium Purple */
@@ -62,10 +155,17 @@ body {
     min-height: 100vh;
 }
 
+body.dashboard-body {
+    background: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 body.auth-page {
     background: 
         linear-gradient(135deg, rgba(75, 0, 130, 0.8), rgba(102, 51, 153, 0.8)),
-        url('/public/images/background.jpg');
+        url('/public/images/backgrounds/background.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

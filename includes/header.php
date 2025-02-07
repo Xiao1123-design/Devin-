@@ -1,7 +1,7 @@
 <header class="main-header">
     <div class="header-content">
         <a href="dashboard.php" class="logo">
-            <img src="/public/images/logo.jpg" alt="ResellU Logo" class="logo-img">
+            <img src="<?php echo UPLOAD_URL; ?>logo.jpg" alt="ResellU Logo" class="logo-img">
             ResellU
         </a>
         <nav class="main-nav">

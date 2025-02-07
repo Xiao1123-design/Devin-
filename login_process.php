@@ -9,9 +9,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $sql = "SELECT user_id, username, password FROM users WHERE username = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
+    if (!$stmt) {
+        die("Prepare failed: " . $conn->error);
+    }
+
+    if (!$stmt->bind_param("s", $username)) {
+        die("Binding parameters failed: " . $stmt->error);
+    }
+
+    if (!$stmt->execute()) {
+        die("Execute failed: " . $stmt->error);
+    }
+
     $result = $stmt->get_result();
+    if ($result === false) {
+        die("Getting result failed: " . $stmt->error);
+    }
     
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();

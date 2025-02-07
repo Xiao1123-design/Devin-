@@ -28,19 +28,24 @@
             const data = await response.json();
             
             if (!data.success) {
+                statusElement.textContent = '';
+                statusElement.className = 'validation-status';
                 showAlert(data.message, 'error');
                 return false;
             }
             
-            statusElement.textContent = (data.available ? '✓ ' : '✗ ') + data.message;
-            statusElement.className = 'validation-status ' + (data.available ? 'valid' : 'invalid');
-            
-            if (!data.available) {
-                showAlert(data.message, 'error');
+            if (data.available) {
+                statusElement.textContent = '✓ ' + data.message;
+                statusElement.className = 'validation-status valid';
+            } else {
+                statusElement.textContent = '✗ ' + data.message;
+                statusElement.className = 'validation-status invalid';
             }
             
             return data.available;
         } catch (error) {
+            statusElement.textContent = '';
+            statusElement.className = 'validation-status';
             showAlert('验证用户名时出错', 'error');
             return false;
         }

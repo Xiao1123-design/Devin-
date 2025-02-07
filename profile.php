@@ -9,9 +9,27 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_sql = "SELECT * FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($user_sql);
-$stmt->bind_param("i", $_SESSION['user_id']);
-$stmt->execute();
-$user = $stmt->get_result()->fetch_assoc();
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
+if (!$stmt->bind_param("i", $_SESSION['user_id'])) {
+    die("Binding parameters failed: " . $stmt->error);
+}
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
+$result = $stmt->get_result();
+if ($result === false) {
+    die("Getting result failed: " . $stmt->error);
+}
+
+$user = $result->fetch_assoc();
+if ($user === null) {
+    die("User not found");
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +63,8 @@ $user = $stmt->get_result()->fetch_assoc();
         $stmt = $conn->prepare($rating_sql);
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
-        $avg_rating = $stmt->get_result()->fetch_assoc()['avg_rating'] ?? 0;
+        $result = $stmt->get_result()->fetch_assoc();
+        $avg_rating = isset($result['avg_rating']) ? $result['avg_rating'] : 0;
         
         $ratings_sql = "SELECT rating, comment, DATE(created_at) as rating_date 
                        FROM anonymous_ratings 
@@ -165,28 +184,28 @@ $user = $stmt->get_result()->fetch_assoc();
                     <div class="form-group">
                         <label for="nationality">Nationality</label>
                         <input type="text" id="nationality" name="nationality" 
-                               value="<?php echo htmlspecialchars($user['nationality'] ?? ''); ?>">
+                               value="<?php echo htmlspecialchars(isset($user['nationality']) ? $user['nationality'] : ''); ?>">
                     </div>
                     
                     <div class="form-group">
                         <label for="age">Age</label>
                         <input type="number" id="age" name="age" min="16" max="120" 
-                               value="<?php echo htmlspecialchars($user['age'] ?? ''); ?>">
+                               value="<?php echo htmlspecialchars(isset($user['age']) ? $user['age'] : ''); ?>">
                     </div>
                     
                     <div class="form-group">
                         <label for="gender">Gender</label>
                         <select id="gender" name="gender">
                             <option value="">Prefer not to say</option>
-                            <option value="male" <?php echo ($user['gender'] ?? '') === 'male' ? 'selected' : ''; ?>>Male</option>
-                            <option value="female" <?php echo ($user['gender'] ?? '') === 'female' ? 'selected' : ''; ?>>Female</option>
-                            <option value="other" <?php echo ($user['gender'] ?? '') === 'other' ? 'selected' : ''; ?>>Other</option>
+                            <option value="male" <?php echo (isset($user['gender']) && $user['gender'] === 'male') ? 'selected' : ''; ?>>Male</option>
+                            <option value="female" <?php echo (isset($user['gender']) && $user['gender'] === 'female') ? 'selected' : ''; ?>>Female</option>
+                            <option value="other" <?php echo (isset($user['gender']) && $user['gender'] === 'other') ? 'selected' : ''; ?>>Other</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <textarea id="address" name="address" rows="3"><?php echo htmlspecialchars($user['address'] ?? ''); ?></textarea>
+                        <textarea id="address" name="address" rows="3"><?php echo htmlspecialchars(isset($user['address']) ? $user['address'] : ''); ?></textarea>
                     </div>
                     
                     <button type="submit" class="btn-primary">Update Profile</button>
