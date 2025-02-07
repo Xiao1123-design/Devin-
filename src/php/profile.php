@@ -63,16 +63,20 @@ if ($user === null) {
             $rating_sql = "SELECT AVG(rating) as avg_rating FROM anonymous_ratings WHERE rated_id = ?";
             $stmt = $conn->prepare($rating_sql);
             if (!$stmt) {
-                throw new Exception("SQL准备失败: " . $conn->error);
+                error_log("SQL prepare failed: " . $conn->error);
+                throw new Exception("获取评分失败: " . $conn->error);
             }
             if (!$stmt->bind_param("i", $user_id)) {
+                error_log("Parameter binding failed: " . $stmt->error);
                 throw new Exception("参数绑定失败: " . $stmt->error);
             }
             if (!$stmt->execute()) {
+                error_log("SQL execution failed: " . $stmt->error);
                 throw new Exception("SQL执行失败: " . $stmt->error);
             }
             $result = $stmt->get_result();
             if (!$result) {
+                error_log("Result fetch failed: " . $stmt->error);
                 throw new Exception("获取结果失败: " . $stmt->error);
             }
             $row = $result->fetch_assoc();
