@@ -29,27 +29,41 @@ try {
     }
 
     // Initialize database tables
-    // Try multiple possible locations for the SQL file
+    // Get absolute paths
+    $script_dir = str_replace('\\', '/', __DIR__);
+    $root_dir = str_replace('\\', '/', dirname($script_dir));
+    
+    // For PHPStudy Pro, get the WWW root directory
+    if (strpos($script_dir, 'phpstudy_pro') !== false) {
+        // Extract the WWW/RESELLU part from the path
+        if (preg_match('/(.*?WWW\/RESELLU)/', $script_dir, $matches)) {
+            $root_dir = str_replace('\\', '/', $matches[1]);
+        }
+    }
+    
+    // Try to find the SQL file
     $possible_paths = [
-        dirname(__DIR__) . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'database.sql',
-        dirname(__DIR__) . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'database.sql',
-        __DIR__ . DIRECTORY_SEPARATOR . 'database.sql',
-        __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'database.sql'
+        $root_dir . '/database/database.sql',
+        $root_dir . '/sql/database.sql',
+        $script_dir . '/database.sql',
+        $root_dir . '/database.sql'
     ];
 
     $sql_file = null;
     foreach ($possible_paths as $path) {
-        if (file_exists($path)) {
-            $sql_file = $path;
+        $normalized_path = str_replace(['\\', '//'], '/', $path);
+        if (file_exists($normalized_path)) {
+            $sql_file = $normalized_path;
             break;
         }
     }
 
     if (!$sql_file) {
-        throw new Exception("找不到数据库初始化文件。请确保database.sql文件存在于以下位置之一：\n" .
-                          implode("\n", array_map(function($path) { 
-                              return "- " . str_replace('\\', '/', $path); 
-                          }, $possible_paths)));
+        throw new Exception("找不到数据库初始化文件。\n请确保database.sql文件存在于以下位置之一：\n" .
+                          implode("\n", array_map(function($path) {
+                              return "- " . str_replace(['\\', '//'], '/', $path);
+                          }, $possible_paths)) . "\n" .
+                          "当前PHP目录: " . str_replace('\\', '/', __DIR__));
     }
 
     if (!is_readable($sql_file)) {
