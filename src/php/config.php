@@ -34,9 +34,21 @@ try {
         throw new Exception("Error initializing tables: " . $conn->error);
     }
     
-    // Clear results from multi_query
-    while ($conn->more_results()) {
-        $conn->next_result();
+    // Clear results from multi_query and check for errors
+    do {
+        if ($result = $conn->store_result()) {
+            $result->free();
+        }
+        if ($conn->error) {
+            throw new Exception("Error in table creation: " . $conn->error);
+        }
+    } while ($conn->more_results() && $conn->next_result());
+
+    // Verify tables exist
+    $check_tables_sql = "SHOW TABLES LIKE 'anonymous_ratings'";
+    $result = $conn->query($check_tables_sql);
+    if (!$result || $result->num_rows === 0) {
+        throw new Exception("Table creation failed: anonymous_ratings table not found");
     }
 } catch (Exception $e) {
     error_log("Database Error: " . $e->getMessage());

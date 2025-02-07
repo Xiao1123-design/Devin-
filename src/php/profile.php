@@ -87,6 +87,9 @@ if ($user === null) {
         }
         
         try {
+            // Select database explicitly
+            $conn->select_db(DB_NAME);
+            
             $ratings_sql = "SELECT rating, comment, DATE(created_at) as rating_date 
                            FROM anonymous_ratings 
                            WHERE rated_id = ? 
@@ -129,19 +132,23 @@ if ($user === null) {
                 <?php endif; ?>
             </div>
             <div id="rating-list">
-                <?php while($rating = $ratings->fetch_assoc()): ?>
-                    <div class="rating-item">
-                        <div class="rating-stars">
-                            <?php echo str_repeat('★', $rating['rating']) . str_repeat('☆', 5-$rating['rating']); ?>
+                <?php if ($ratings): ?>
+                    <?php while($rating = $ratings->fetch_assoc()): ?>
+                        <div class="rating-item">
+                            <div class="rating-stars">
+                                <?php echo str_repeat('★', $rating['rating']) . str_repeat('☆', 5-$rating['rating']); ?>
+                            </div>
+                            <div class="rating-comment">
+                                <?php echo htmlspecialchars($rating['comment']); ?>
+                            </div>
+                            <div class="rating-date">
+                                <?php echo $rating['rating_date']; ?>
+                            </div>
                         </div>
-                        <div class="rating-comment">
-                            <?php echo htmlspecialchars($rating['comment']); ?>
-                        </div>
-                        <div class="rating-date">
-                            <?php echo $rating['rating_date']; ?>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="no-ratings">暂无评分记录</p>
+                <?php endif; ?>
             </div>
         </div>
         
