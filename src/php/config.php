@@ -16,12 +16,15 @@ try {
         throw new Exception("数据库连接失败: " . $conn->connect_error);
     }
 
-    // Create database if not exists
-    $sql = "CREATE DATABASE IF NOT EXISTS " . DB_NAME;
-    if (!$conn->query($sql)) {
-        throw new Exception("创建数据库失败: " . $conn->error);
+    // Select or create database
+    if (!$conn->select_db(DB_NAME)) {
+        // Database doesn't exist, create it
+        $sql = "CREATE DATABASE " . DB_NAME;
+        if (!$conn->query($sql)) {
+            throw new Exception("创建数据库失败: " . $conn->error);
+        }
     }
-
+    
     // Close initial connection and connect to the database
     $conn->close();
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
