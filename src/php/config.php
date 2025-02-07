@@ -29,9 +29,23 @@ try {
     }
 
     // Initialize database tables
-    $tables_sql = file_get_contents(__DIR__ . '/../sql/database.sql');
+    $sql_dir = realpath(__DIR__ . '/../sql');
+    if (!$sql_dir || !is_dir($sql_dir)) {
+        throw new Exception("SQL目录不存在: " . __DIR__ . '/../sql');
+    }
+    
+    $sql_file = $sql_dir . DIRECTORY_SEPARATOR . 'database.sql';
+    if (!file_exists($sql_file)) {
+        throw new Exception("SQL文件不存在: " . $sql_file);
+    }
+    
+    $tables_sql = file_get_contents($sql_file);
+    if ($tables_sql === false) {
+        throw new Exception("无法读取SQL文件: " . $sql_file);
+    }
+    
     if (!$conn->multi_query($tables_sql)) {
-        throw new Exception("Error initializing tables: " . $conn->error);
+        throw new Exception("初始化数据表失败: " . $conn->error);
     }
     
     // Clear results from multi_query and check for errors
