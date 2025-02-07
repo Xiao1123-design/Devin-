@@ -41,48 +41,52 @@ try {
         }
     }
     
-    // Define all possible SQL file locations
-    $possible_locations = [
-        $root_dir . '/database/database.sql',
-        $root_dir . '/sql/database.sql',
-        $script_dir . '/database.sql',
-        dirname($script_dir) . '/sql/database.sql',
-        $root_dir . '/database.sql'
-    ];
-    
-    // Try to find existing SQL file
+    // Initialize variables
     $sql_file = null;
-    foreach ($possible_locations as $location) {
-        if (file_exists($location)) {
-            $sql_file = $location;
-            break;
-        }
-    }
+    $database_dir = $root_dir . '/database';
+    $target_file = $database_dir . '/database.sql';
     
-    // If not found, try to create database directory and copy file
-    if (!$sql_file) {
-        $database_dir = $root_dir . '/database';
-        if (!is_dir($database_dir) && !mkdir($database_dir, 0755, true)) {
-            throw new Exception("无法创建数据库目录: " . $database_dir);
+    // Check if target file exists
+    if (file_exists($target_file)) {
+        $sql_file = $target_file;
+    } else {
+        // Try to create database directory if it doesn't exist
+        if (!is_dir($database_dir)) {
+            @mkdir($database_dir, 0755, true);
         }
         
-        $target_file = $database_dir . '/database.sql';
-        foreach ($possible_locations as $source) {
-            if (file_exists($source) && copy($source, $target_file)) {
-                $sql_file = $target_file;
-                break;
+        // Try to find SQL file in other locations
+        $search_paths = array(
+            $root_dir . '/sql/database.sql',
+            $script_dir . '/database.sql',
+            dirname($script_dir) . '/sql/database.sql',
+            $root_dir . '/database.sql'
+        );
+        
+        // Try to copy from any existing location
+        foreach ($search_paths as $source) {
+            if (file_exists($source)) {
+                if (@copy($source, $target_file)) {
+                    $sql_file = $target_file;
+                    break;
+                }
             }
         }
-    }
-    
-    if (!$sql_file) {
-        $error_msg = "找不到数据库初始化文件。\n";
-        $error_msg .= "请确保database.sql文件存在于以下位置之一：\n";
-        foreach ($possible_locations as $path) {
-            $error_msg .= "- " . str_replace('\\', '/', $path) . "\n";
+        
+        // If still not found, prepare error message
+        if (!$sql_file) {
+            $paths = array_merge(array($target_file), $search_paths);
+            $error_msg = "找不到数据库初始化文件。\n";
+            $error_msg .= "请确保database.sql文件存在于以下位置之一：\n";
+            $error_msg .= "首选位置：\n- " . str_replace('\\', '/', $target_file) . "\n";
+            $error_msg .= "其他可能位置：\n";
+            foreach ($search_paths as $path) {
+                $error_msg .= "- " . str_replace('\\', '/', $path) . "\n";
+            }
+            $error_msg .= "当前PHP目录: " . str_replace('\\', '/', $script_dir);
+            throw new Exception($error_msg);
         }
-        $error_msg .= "当前PHP目录: " . str_replace('\\', '/', $script_dir);
-        throw new Exception($error_msg);
+    }
     }
 
     $sql_file = null;
