@@ -86,14 +86,32 @@ if ($user === null) {
             $avg_rating = '暂无评分';
         }
         
-        $ratings_sql = "SELECT rating, comment, DATE(created_at) as rating_date 
-                       FROM anonymous_ratings 
-                       WHERE rated_id = ? 
-                       ORDER BY created_at DESC";
-        $stmt = $conn->prepare($ratings_sql);
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $ratings = $stmt->get_result();
+        try {
+            $ratings_sql = "SELECT rating, comment, DATE(created_at) as rating_date 
+                           FROM anonymous_ratings 
+                           WHERE rated_id = ? 
+                           ORDER BY created_at DESC";
+            $stmt = $conn->prepare($ratings_sql);
+            if (!$stmt) {
+                error_log("SQL prepare failed for ratings list: " . $conn->error);
+                throw new Exception("获取评分列表失败: " . $conn->error);
+            }
+            if (!$stmt->bind_param("i", $user_id)) {
+                error_log("Parameter binding failed for ratings list: " . $stmt->error);
+                throw new Exception("参数绑定失败: " . $stmt->error);
+            }
+            if (!$stmt->execute()) {
+                error_log("SQL execution failed for ratings list: " . $stmt->error);
+                throw new Exception("SQL执行失败: " . $stmt->error);
+            }
+            $ratings = $stmt->get_result();
+            if (!$ratings) {
+                error_log("Result fetch failed for ratings list: " . $stmt->error);
+                throw new Exception("获取结果失败: " . $stmt->error);
+            }
+        } catch (Exception $e) {
+            error_log("Ratings list fetch error: " . $e->getMessage());
+            $ratings = false;
         ?>
         
         <div class="profile-header">
