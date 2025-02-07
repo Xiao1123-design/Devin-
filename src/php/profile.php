@@ -115,6 +115,7 @@ if ($user === null) {
         } catch (Exception $e) {
             error_log("Ratings list fetch error: " . $e->getMessage());
             $ratings = false;
+        }
         ?>
         
         <div class="profile-header">
