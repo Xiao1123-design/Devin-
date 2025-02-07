@@ -29,13 +29,44 @@ try {
     }
 
     // Initialize database tables
-    $sql_dir = realpath(__DIR__ . '/../sql');
-    if (!$sql_dir || !is_dir($sql_dir)) {
-        throw new Exception("SQL目录不存在: " . __DIR__ . '/../sql');
+    // Try multiple possible locations for the SQL file
+    $possible_paths = [
+        dirname(__DIR__) . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'database.sql',
+        dirname(__DIR__) . DIRECTORY_SEPARATOR . 'sql' . DIRECTORY_SEPARATOR . 'database.sql',
+        __DIR__ . DIRECTORY_SEPARATOR . 'database.sql',
+        __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'database.sql'
+    ];
+
+    $sql_file = null;
+    foreach ($possible_paths as $path) {
+        if (file_exists($path)) {
+            $sql_file = $path;
+            break;
+        }
     }
-    
-    $sql_file = $sql_dir . DIRECTORY_SEPARATOR . 'database.sql';
-    if (!file_exists($sql_file)) {
+
+    if (!$sql_file) {
+        throw new Exception("找不到数据库初始化文件。请确保database.sql文件存在于以下位置之一：\n" .
+                          implode("\n", array_map(function($path) { 
+                              return "- " . str_replace('\\', '/', $path); 
+                          }, $possible_paths)));
+    }
+
+    if (!is_readable($sql_file)) {
+        throw new Exception("无法读取SQL文件，请检查文件权限: " . $sql_file);
+    }
+
+    $tables_sql = file_get_contents($sql_file);
+    if ($tables_sql === false) {
+        throw new Exception("读取SQL文件失败: " . $sql_file);
+    }
+
+    if (empty(trim($tables_sql))) {
+        throw new Exception("SQL文件内容为空: " . $sql_file);
+    }
+
+    // Execute SQL queries
+    if (!$conn->multi_query($tables_sql)) {
         throw new Exception("SQL文件不存在: " . $sql_file);
     }
     
