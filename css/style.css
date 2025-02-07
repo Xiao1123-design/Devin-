@@ -1,48 +1,25 @@
-:root {
-    /* Main Colors - Purple Theme */
-    --primary-dark: #4B0082;    /* Deep Purple */
-    --primary-color: #663399;   /* Medium Purple */
-    --primary-light: #9966CC;   /* Light Purple */
-    --primary-gradient: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-    
-    /* Secondary Colors */
-    --white: #ffffff;
-    --beige: #F5F5DC;
-    --light-gray: #E8E8E8;
-    
-    /* Accent Color */
-    --accent-color: #FFD700;    /* Gold */
-    
-    /* Additional UI Colors */
-    --text-color: #333333;
-    --error-color: #DC3545;
-    --success-color: #28A745;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --overlay-color: rgba(0, 0, 0, 0.5);
-}
-
 /* Back Button */
 .btn-back {
     display: inline-flex;
     align-items: center;
     padding: 0.5rem 1rem;
-    color: var(--text-color);
+    color: #333333;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
     margin: 1rem;
     border-radius: 6px;
-    background: var(--white);
-    box-shadow: 0 2px 4px var(--shadow-color);
+    background: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .btn-back:hover {
     transform: translateX(-4px);
-    box-shadow: 0 4px 8px var(--shadow-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .arrow-left {
-    border: solid var(--primary-color);
+    border: solid #663399;
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 3px;
@@ -51,10 +28,10 @@
 }
 
 .main-header {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
     padding: 1rem 2rem;
-    color: var(--white);
-    box-shadow: 0 2px 8px var(--shadow-color);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -76,7 +53,7 @@
     gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: bold;
-    color: var(--white);
+    color: #ffffff;
     text-decoration: none;
     flex-shrink: 0;
 }
@@ -89,7 +66,7 @@
 }
 
 .main-nav a {
-    color: var(--white);
+    color: #ffffff;
     text-decoration: none;
     padding: 0.8rem 1.2rem;
     border-radius: 6px;
@@ -111,7 +88,7 @@
     left: 50%;
     width: 0;
     height: 2px;
-    background: var(--accent-color);
+    background: #FFD700;
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
@@ -129,7 +106,7 @@
 
 .btn-logout {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--white);
+    color: #ffffff;
     padding: 0.8rem 1.5rem;
     border-radius: 6px;
     text-decoration: none;
@@ -151,12 +128,12 @@
 }
 
 body {
-    background: var(--white);
+    background: #ffffff;
     min-height: 100vh;
 }
 
 body.dashboard-body {
-    background: var(--white);
+    background: #ffffff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -176,7 +153,7 @@ body.auth-page {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    color: var(--text-color);
+    color: #333333;
     position: relative;
     overflow-x: hidden;
 }
@@ -203,18 +180,18 @@ body::before {
 }
 
 .login-container h1 {
-    color: var(--white);
+    color: #ffffff;
     margin-bottom: 2rem;
     font-size: 2.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .login-box {
-    background: var(--white);
+    background: #ffffff;
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 
-        0 0 25px var(--shadow-color),
+        0 0 25px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(153, 102, 204, 0.1),
         0 8px 16px -4px rgba(153, 102, 204, 0.2);
     width: 100%;
@@ -230,7 +207,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
 }
 
 .login-box::after {
@@ -247,7 +224,7 @@ body::before {
 }
 
 .login-box h2 {
-    color: var(--primary-color);
+    color: #663399;
     margin-bottom: 1.5rem;
 }
 
@@ -258,18 +235,18 @@ body::before {
 input {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--light-gray);
+    border: 2px solid #E8E8E8;
     border-radius: 6px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    background: var(--white);
-    color: var(--text-color);
+    background: #ffffff;
+    color: #333333;
     box-sizing: border-box;
 }
 
 input:focus {
     outline: none;
-    border-color: var(--primary-light);
+    border-color: #9966CC;
     box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.1);
 }
 
@@ -287,19 +264,19 @@ input:focus {
 
 .alert.error {
     background-color: rgba(220, 53, 69, 0.1);
-    color: var(--error-color);
-    border: 1px solid var(--error-color);
+    color: #DC3545;
+    border: 1px solid #DC3545;
 }
 
 .alert.success {
     background-color: rgba(40, 167, 69, 0.1);
-    color: var(--success-color);
-    border: 1px solid var(--success-color);
+    color: #28A745;
+    border: 1px solid #28A745;
 }
 
 .btn-primary {
-    background: var(--primary-gradient);
-    color: var(--white);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
+    color: #ffffff;
     padding: 1rem 2rem;
     border: none;
     border-radius: 6px;
@@ -313,7 +290,7 @@ input:focus {
     text-decoration: none;
     display: inline-block;
     box-shadow: 
-        0 2px 4px var(--shadow-color),
+        0 2px 4px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.1) inset,
         0 -1px 0 rgba(0, 0, 0, 0.1) inset,
         0 1px 0 rgba(255, 255, 255, 0.1) inset;
@@ -342,17 +319,15 @@ input:focus {
 }
 
 .btn-primary:hover {
-    background: var(--primary-dark);
+    background: #4B0082;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary:hover {
-    background: var(--primary-dark);
-}
+/* Remove duplicate hover rule */
 
 a {
-    color: var(--primary-color);
+    color: #663399;
     text-decoration: none;
 }
 
@@ -369,7 +344,7 @@ a:hover {
 
 p {
     margin-top: 1rem;
-    color: var(--text-color);
+    color: #333333;
 }
 
 .validation-status {
@@ -379,9 +354,9 @@ p {
 }
 
 .validation-status.valid {
-    color: var(--success-color);
+    color: #28A745;
 }
 
 .validation-status.invalid {
-    color: var(--error-color);
+    color: #DC3545;
 }

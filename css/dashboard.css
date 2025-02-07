@@ -1,13 +1,13 @@
 .dashboard-body {
-    background: var(--white);
+    background: #ffffff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: 
         linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.95)),
         repeating-linear-gradient(45deg, 
-            var(--primary-light) 0px, 
-            var(--primary-light) 1px,
+            #9966CC 0px, 
+            #9966CC 1px,
             transparent 1px, 
             transparent 10px
         );
@@ -38,10 +38,10 @@
 }
 
 .search-container {
-    background: var(--white);
+    background: #ffffff;
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
     display: flex;
     gap: 1rem;
@@ -50,30 +50,30 @@
 .search-container input {
     flex: 1;
     padding: 1rem;
-    border: 2px solid var(--light-gray);
+    border: 2px solid #E8E8E8;
     border-radius: 6px;
     font-size: 1rem;
     transition: all 0.3s ease;
 }
 
 .search-container input:focus {
-    border-color: var(--primary-light);
+    border-color: #9966CC;
     box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.1);
 }
 
 .search-container select {
     padding: 1rem;
-    border: 2px solid var(--light-gray);
+    border: 2px solid #E8E8E8;
     border-radius: 6px;
     font-size: 1rem;
     min-width: 150px;
-    background: var(--white);
+    background: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .search-container select:focus {
-    border-color: var(--primary-light);
+    border-color: #9966CC;
     box-shadow: 0 0 0 3px rgba(153, 102, 204, 0.1);
 }
 
@@ -83,10 +83,10 @@
     padding: 2rem 0;
     margin-bottom: 3rem;
     background: 
-        linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%);
+        linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.95) 100%);
     border-radius: 12px;
     box-shadow: 
-        0 4px 12px var(--shadow-color),
+        0 4px 12px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(153, 102, 204, 0.1);
 }
 
@@ -97,7 +97,7 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
 }
 
 .carousel-section::after {
@@ -127,16 +127,16 @@
     flex: 0 0 calc(25% - 1.5rem);
     min-width: 250px;
     text-decoration: none;
-    color: var(--text-color);
-    background: var(--white);
+    color: #333333;
+    background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
 .carousel-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px var(--shadow-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .carousel-item img {
@@ -152,7 +152,7 @@
 
 .carousel-info h3 {
     margin: 0 0 0.5rem;
-    color: var(--primary-color);
+    color: #663399;
 }
 
 .carousel-control {
@@ -161,8 +161,8 @@
     transform: translateY(-50%);
     width: 40px;
     height: 40px;
-    background: var(--primary-color);
-    color: var(--white);
+    background: #663399;
+    color: #ffffff;
     border: none;
     border-radius: 50%;
     font-size: 1.5rem;
@@ -174,7 +174,7 @@
 
 .carousel-control:hover {
     opacity: 1;
-    background: var(--primary-dark);
+    background: #4B0082;
 }
 
 .carousel-control.prev {
@@ -213,7 +213,7 @@
     background: 
         linear-gradient(90deg,
             transparent,
-            var(--primary-light),
+            #9966CC,
             transparent);
     opacity: 0.2;
     pointer-events: none;
@@ -224,7 +224,7 @@
 }
 
 .category-group h3 {
-    color: var(--primary-color);
+    color: #663399;
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
     position: relative;
@@ -240,7 +240,7 @@
     transform: translateY(-50%);
     width: 4px;
     height: 70%;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
     border-radius: 2px;
 }
 
@@ -251,7 +251,7 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -262,15 +262,15 @@
 }
 
 .product-card {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 
-        0 4px 12px var(--shadow-color),
+        0 4px 12px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(153, 102, 204, 0.1);
     overflow: hidden;
     transition: all 0.3s ease;
     text-decoration: none;
-    color: var(--text-color);
+    color: #333333;
     display: block;
     position: relative;
 }
@@ -307,8 +307,8 @@
 
 .product-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 24px var(--shadow-color);
-    border-color: var(--primary-light);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #9966CC;
 }
 
 .product-card:hover {
@@ -327,26 +327,26 @@
 
 .product-info h3 {
     margin: 0;
-    color: var(--text-color);
+    color: #333333;
 }
 
 .price {
-    color: var(--primary-color);
+    color: #663399;
     font-weight: bold;
     font-size: 1.2rem;
     margin: 0.5rem 0;
 }
 
 .seller {
-    color: var(--text-color);
+    color: #333333;
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
 .btn-view {
     display: block;
-    background: var(--primary-color);
-    color: var(--white);
+    background: #663399;
+    color: #ffffff;
     text-align: center;
     padding: 0.5rem;
     border-radius: 4px;
@@ -361,12 +361,12 @@
 }
 
 .action-card {
-    background: var(--white);
+    background: #ffffff;
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
     transition: all 0.3s ease;
-    border: 2px solid var(--light-gray);
+    border: 2px solid #E8E8E8;
     position: relative;
     overflow: hidden;
 }
@@ -378,7 +378,7 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -389,18 +389,18 @@
 
 .action-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px var(--shadow-color);
-    border-color: var(--primary-light);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #9966CC;
 }
 
 .action-card h3 {
-    color: var(--primary-dark);
+    color: #4B0082;
     margin-bottom: 1.5rem;
     font-size: 1.25rem;
 }
 
 .action-card {
-    background: var(--beige);
+    background: #F5F5DC;
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
@@ -408,12 +408,12 @@
 
 .action-card h3 {
     margin-bottom: 1rem;
-    color: var(--primary-dark);
+    color: #4B0082;
 }
 
 .main-footer {
-    background: var(--primary-dark);
-    color: var(--white);
+    background: #4B0082;
+    color: #ffffff;
     padding: 1rem;
     text-align: center;
     margin-top: auto;
@@ -422,11 +422,11 @@
 .requests-section,
 .donations-section {
     background: 
-        linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.95) 100%);
+        linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.95) 100%);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 
-        0 4px 12px var(--shadow-color),
+        0 4px 12px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(153, 102, 204, 0.1);
     margin-bottom: 3rem;
     position: relative;
@@ -441,7 +441,7 @@
     left: 0;
     width: 100%;
     height: 4px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
 }
 
 .requests-section::after,
@@ -463,10 +463,10 @@
 
 .request-card,
 .donation-card {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 
-        0 4px 12px var(--shadow-color),
+        0 4px 12px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(153, 102, 204, 0.1);
     overflow: hidden;
     transition: all 0.3s ease;
@@ -517,12 +517,12 @@
 
 .request-card,
 .donation-card {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: all 0.3s ease;
-    border: 1px solid var(--light-gray);
+    border: 1px solid #E8E8E8;
     flex: 0 0 calc(25% - 1.5rem);
     min-width: 250px;
 }
@@ -530,8 +530,8 @@
 .request-card:hover,
 .donation-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px var(--shadow-color);
-    border-color: var(--primary-light);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #9966CC;
 }
 
 .request-info,
@@ -542,13 +542,13 @@
 .request-info h3,
 .donation-info h3 {
     margin: 0 0 1rem;
-    color: var(--primary-color);
+    color: #663399;
 }
 
 .btn-contact {
     display: inline-block;
-    background: var(--primary-gradient);
-    color: var(--white);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
+    color: #ffffff;
     padding: 0.8rem 1.5rem;
     border-radius: 6px;
     text-decoration: none;
@@ -557,7 +557,7 @@
     position: relative;
     overflow: hidden;
     box-shadow: 
-        0 2px 4px var(--shadow-color),
+        0 2px 4px rgba(0, 0, 0, 0.1),
         0 0 0 1px rgba(255, 255, 255, 0.1) inset;
 }
 
@@ -583,15 +583,15 @@
 
 .btn-contact:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn-view-all {
     display: block;
     text-align: center;
     padding: 1rem;
-    background: var(--primary-gradient);
-    color: var(--white);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
+    color: #ffffff;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 500;
@@ -600,5 +600,5 @@
 
 .btn-view-all:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

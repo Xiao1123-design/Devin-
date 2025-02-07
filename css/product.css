@@ -9,14 +9,14 @@
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
-    background: var(--white);
+    background: #ffffff;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 16px var(--shadow-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .product-image {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -29,33 +29,33 @@
 }
 
 .product-info {
-    background: var(--white);
+    background: #ffffff;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-info h1 {
-    color: var(--primary-color);
+    color: #663399;
     margin: 0 0 1rem;
 }
 
 .price {
     font-size: 2rem;
-    color: var(--primary-dark);
+    color: #4B0082;
     font-weight: bold;
     margin-bottom: 2rem;
 }
 
 .seller-info {
-    border-top: 1px solid var(--light-gray);
-    border-bottom: 1px solid var(--light-gray);
+    border-top: 1px solid #E8E8E8;
+    border-bottom: 1px solid #E8E8E8;
     padding: 1.5rem 0;
     margin-bottom: 1.5rem;
 }
 
 .seller-info h3 {
-    color: var(--primary-color);
+    color: #663399;
     margin: 0 0 1rem;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .rating {
-    color: var(--accent-color);
+    color: #FFD700;
 }
 
 .btn-contact,
@@ -81,23 +81,23 @@
 }
 
 .btn-contact {
-    background: var(--primary-color);
-    color: var(--white);
+    background: #663399;
+    color: #ffffff;
 }
 
 .btn-review {
-    background: var(--light-gray);
-    color: var(--text-color);
+    background: #E8E8E8;
+    color: #333333;
     border: none;
     cursor: pointer;
 }
 
 .btn-contact:hover {
-    background: var(--primary-dark);
+    background: #4B0082;
 }
 
 .btn-review:hover {
-    background: var(--beige);
+    background: #F5F5DC;
 }
 
 .product-meta {
@@ -106,28 +106,28 @@
 
 .product-meta p {
     margin: 0.5rem 0;
-    color: var(--text-color);
+    color: #333333;
 }
 
 .product-description h3 {
-    color: var(--primary-color);
+    color: #663399;
     margin: 0 0 1rem;
 }
 
 .product-description p {
-    color: var(--text-color);
+    color: #333333;
     line-height: 1.6;
 }
 
 .seller-reviews {
-    background: var(--white);
+    background: #ffffff;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .seller-reviews h3 {
-    color: var(--primary-color);
+    color: #663399;
     margin: 0 0 1.5rem;
 }
 
@@ -138,7 +138,7 @@
 
 .review-card {
     padding: 1rem;
-    border: 1px solid var(--light-gray);
+    border: 1px solid #E8E8E8;
     border-radius: 4px;
 }
 
@@ -150,18 +150,18 @@
 
 .reviewer {
     font-weight: bold;
-    color: var(--text-color);
+    color: #333333;
 }
 
 .review-comment {
-    color: var(--text-color);
+    color: #333333;
     margin: 0.5rem 0;
 }
 
 .review-date {
     display: block;
     font-size: 0.9rem;
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.7;
 }
 
@@ -178,7 +178,7 @@
 
 .rating-input label {
     font-size: 2rem;
-    color: var(--light-gray);
+    color: #E8E8E8;
     cursor: pointer;
     transition: color 0.2s;
 }
@@ -186,7 +186,7 @@
 .rating-input label:hover,
 .rating-input label:hover ~ label,
 .rating-input input:checked ~ label {
-    color: var(--accent-color);
+    color: #FFD700;
 }
 
 @media (max-width: 768px) {

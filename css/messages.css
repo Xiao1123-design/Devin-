@@ -8,7 +8,7 @@
 }
 
 .conversations-list {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
@@ -18,9 +18,9 @@
     display: flex;
     justify-content: space-between;
     padding: 1.2rem;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid #E8E8E8;
     text-decoration: none;
-    color: var(--text-color);
+    color: #333333;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -33,13 +33,13 @@
     top: 0;
     height: 100%;
     width: 4px;
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .conversation-item:hover {
-    background: var(--beige);
+    background: #F5F5DC;
 }
 
 .conversation-item:hover::before {
@@ -47,35 +47,35 @@
 }
 
 .conversation-item:hover {
-    background-color: var(--beige);
+    background-color: #F5F5DC;
 }
 
 .conversation-info h3 {
     margin: 0;
-    color: var(--primary-color);
+    color: #663399;
     font-size: 1rem;
 }
 
 .last-message {
     margin: 0.5rem 0 0;
     font-size: 0.9rem;
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.8;
 }
 
 .message-time {
     font-size: 0.8rem;
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.6;
 }
 
 .chat-placeholder {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.6;
 }

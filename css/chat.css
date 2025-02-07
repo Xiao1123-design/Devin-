@@ -1,7 +1,7 @@
 .chat-container {
     max-width: 1200px;
     margin: 2rem auto;
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -11,7 +11,7 @@
 
 .chat-header {
     padding: 1rem;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid #E8E8E8;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -19,7 +19,7 @@
 
 .chat-header h2 {
     margin: 0;
-    color: var(--primary-color);
+    color: #663399;
 }
 
 .chat-avatar {
@@ -29,7 +29,7 @@
     object-fit: cover;
     cursor: pointer;
     transition: transform 0.3s ease;
-    border: 2px solid var(--primary-light);
+    border: 2px solid #9966CC;
 }
 
 .chat-avatar:hover {
@@ -49,14 +49,14 @@
 }
 
 .profile-content {
-    background: var(--white);
+    background: #ffffff;
     margin: 5% auto;
     padding: 2rem;
     width: 90%;
     max-width: 500px;
     border-radius: 12px;
     position: relative;
-    box-shadow: 0 8px 24px var(--shadow-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
 .close {
@@ -83,20 +83,20 @@
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid var(--primary-light);
+    border: 4px solid #9966CC;
     margin-bottom: 1rem;
 }
 
 .profile-header h2 {
     margin: 0.5rem 0;
-    color: var(--primary-dark);
+    color: #4B0082;
 }
 
 .user-type-badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
-    background: var(--primary-gradient);
-    color: var(--white);
+    background: linear-gradient(135deg, #9966CC, #4B0082);
+    color: #ffffff;
     border-radius: 20px;
     font-size: 0.9rem;
 }
@@ -112,13 +112,13 @@
 }
 
 .detail-group label {
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.7;
     font-size: 0.9rem;
 }
 
 .detail-group p {
-    color: var(--text-color);
+    color: #333333;
     font-size: 1rem;
     margin: 0;
 }
@@ -149,18 +149,18 @@
 .message-content {
     padding: 0.8rem;
     border-radius: 12px;
-    background: var(--primary-light);
-    color: var(--white);
+    background: #9966CC;
+    color: #ffffff;
 }
 
 .message.received .message-content {
-    background: var(--light-gray);
-    color: var(--text-color);
+    background: #E8E8E8;
+    color: #333333;
 }
 
 .message-meta {
     font-size: 0.8rem;
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.6;
     margin-top: 0.2rem;
 }
@@ -171,7 +171,7 @@
 
 .message-form {
     padding: 1rem;
-    border-top: 1px solid var(--light-gray);
+    border-top: 1px solid #E8E8E8;
     display: flex;
     gap: 1rem;
 }
@@ -179,7 +179,7 @@
 .message-form textarea {
     flex: 1;
     padding: 0.8rem;
-    border: 1px solid var(--light-gray);
+    border: 1px solid #E8E8E8;
     border-radius: 4px;
     resize: none;
     min-height: 40px;
@@ -187,8 +187,8 @@
 }
 
 .btn-send {
-    background: var(--primary-color);
-    color: var(--white);
+    background: #663399;
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     padding: 0 1.5rem;
@@ -197,5 +197,5 @@
 }
 
 .btn-send:hover {
-    background: var(--primary-dark);
+    background: #4B0082;
 }

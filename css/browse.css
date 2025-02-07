@@ -8,7 +8,7 @@
 }
 
 .filters {
-    background: var(--white);
+    background: #ffffff;
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
 .search-form input,
 .search-form select {
     padding: 0.8rem;
-    border: 1px solid var(--light-gray);
+    border: 1px solid #E8E8E8;
     border-radius: 4px;
     flex: 1;
     min-width: 200px;
@@ -41,7 +41,7 @@
 }
 
 .product-card {
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -64,12 +64,12 @@
 
 .product-info h3 {
     margin: 0;
-    color: var(--text-color);
+    color: #333333;
     font-size: 1.2rem;
 }
 
 .price {
-    color: var(--primary-color);
+    color: #663399;
     font-weight: bold;
     font-size: 1.2rem;
     margin: 0.5rem 0;
@@ -79,17 +79,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--text-color);
+    color: #333333;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
 .rating {
-    color: var(--accent-color);
+    color: #FFD700;
 }
 
 .category {
-    color: var(--text-color);
+    color: #333333;
     opacity: 0.7;
     font-size: 0.9rem;
     margin-bottom: 1rem;
@@ -111,28 +111,28 @@
 }
 
 .btn-view {
-    background: var(--primary-color);
-    color: var(--white);
+    background: #663399;
+    color: #ffffff;
 }
 
 .btn-contact {
-    background: var(--light-gray);
-    color: var(--text-color);
+    background: #E8E8E8;
+    color: #333333;
 }
 
 .btn-view:hover {
-    background: var(--primary-dark);
+    background: #4B0082;
 }
 
 .btn-contact:hover {
-    background: var(--beige);
+    background: #F5F5DC;
 }
 
 .no-results {
     grid-column: 1 / -1;
     text-align: center;
     padding: 2rem;
-    background: var(--white);
+    background: #ffffff;
     border-radius: 8px;
-    color: var(--text-color);
+    color: #333333;
 }
