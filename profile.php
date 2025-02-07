@@ -22,14 +22,95 @@ $user = $stmt->get_result()->fetch_assoc();
     <title>Profile - ResellU</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/profile.css">
+    <script src="js/rating.js" defer></script>
 </head>
 <body class="dashboard-body">
     <?php include 'includes/header.php'; ?>
     
     <?php include 'includes/back_button.php'; ?>
     <main class="profile-container">
+        <?php
+        // Get user ID from URL or use current user's ID
+        $user_id = isset($_GET['user']) ? intval($_GET['user']) : $_SESSION['user_id'];
+        
+        // Fetch user data
+        $user_sql = "SELECT * FROM users WHERE user_id = ?";
+        $stmt = $conn->prepare($user_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $user = $stmt->get_result()->fetch_assoc();
+        
+        // Fetch ratings
+        $rating_sql = "SELECT AVG(rating) as avg_rating FROM anonymous_ratings WHERE rated_id = ?";
+        $stmt = $conn->prepare($rating_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $avg_rating = $stmt->get_result()->fetch_assoc()['avg_rating'] ?? 0;
+        
+        $ratings_sql = "SELECT rating, comment, DATE(created_at) as rating_date 
+                       FROM anonymous_ratings 
+                       WHERE rated_id = ? 
+                       ORDER BY created_at DESC";
+        $stmt = $conn->prepare($ratings_sql);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $ratings = $stmt->get_result();
+        ?>
+        
         <div class="profile-header">
-            <h2>Profile Settings</h2>
+            <h2><?php echo $user_id === $_SESSION['user_id'] ? 'Profile Settings' : htmlspecialchars($user['username']) . "'s Profile"; ?></h2>
+        </div>
+        
+        <div class="rating-section">
+            <h3>用户评分</h3>
+            <div class="rating-stats">
+                <div class="average-rating">
+                    <?php echo number_format($avg_rating, 1); ?> / 5.0
+                </div>
+                <?php if ($user_id !== $_SESSION['user_id']): ?>
+                    <button onclick="showRatingForm()" class="btn-primary">评价用户</button>
+                <?php endif; ?>
+            </div>
+            <div id="rating-list">
+                <?php while($rating = $ratings->fetch_assoc()): ?>
+                    <div class="rating-item">
+                        <div class="rating-stars">
+                            <?php echo str_repeat('★', $rating['rating']) . str_repeat('☆', 5-$rating['rating']); ?>
+                        </div>
+                        <div class="rating-comment">
+                            <?php echo htmlspecialchars($rating['comment']); ?>
+                        </div>
+                        <div class="rating-date">
+                            <?php echo $rating['rating_date']; ?>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            </div>
+        </div>
+        
+        <!-- Rating Modal -->
+        <div id="ratingModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h3>评价用户</h3>
+                <form id="ratingForm" onsubmit="submitRating(event)">
+                    <input type="hidden" name="rated_id" value="<?php echo $user_id; ?>">
+                    <div class="form-group">
+                        <label>评分</label>
+                        <div class="star-rating">
+                            <?php for($i = 1; $i <= 5; $i++): ?>
+                                <input type="radio" name="rating" value="<?php echo $i; ?>" required>
+                                <label>★</label>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>评价内容</label>
+                        <textarea name="comment" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">提交评价</button>
+                </form>
+            </div>
         </div>
         
         <?php if (isset($_GET['success'])): ?>

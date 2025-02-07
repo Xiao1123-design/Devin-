@@ -1,6 +1,9 @@
 <header class="main-header">
     <div class="header-content">
-        <a href="dashboard.php" class="logo">ResellU</a>
+        <a href="dashboard.php" class="logo">
+            <img src="/public/images/logo.jpg" alt="ResellU Logo" class="logo-img">
+            ResellU
+        </a>
         <nav class="main-nav">
             <a href="dashboard.php">首页</a>
             <a href="requests.php">请求</a>

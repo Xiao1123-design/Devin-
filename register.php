@@ -9,7 +9,12 @@
     <script src="js/alerts.js"></script>
     <script>
     async function checkUsername(username) {
-        if (!username) return;
+        const statusElement = document.getElementById('username-status');
+        if (!username) {
+            statusElement.textContent = '';
+            statusElement.className = 'validation-status';
+            return false;
+        }
         
         try {
             const response = await fetch('check_username.php', {
@@ -21,14 +26,16 @@
             });
             
             const data = await response.json();
-            const statusElement = document.getElementById('username-status');
             
-            if (data.available) {
-                statusElement.textContent = '✓ ' + data.message;
-                statusElement.className = 'validation-status valid';
-            } else {
-                statusElement.textContent = '✗ ' + data.message;
-                statusElement.className = 'validation-status invalid';
+            if (!data.success) {
+                showAlert(data.message, 'error');
+                return false;
+            }
+            
+            statusElement.textContent = (data.available ? '✓ ' : '✗ ') + data.message;
+            statusElement.className = 'validation-status ' + (data.available ? 'valid' : 'invalid');
+            
+            if (!data.available) {
                 showAlert(data.message, 'error');
             }
             
@@ -48,7 +55,7 @@
     });
     </script>
 </head>
-<body>
+<body class="auth-page">
     <div class="login-container">
         <h1>加入 ResellU</h1>
         <div class="login-box">

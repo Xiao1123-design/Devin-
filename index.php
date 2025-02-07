@@ -15,7 +15,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="css/alerts.css">
     <script src="js/alerts.js"></script>
 </head>
-<body>
+<body class="auth-page">
     <div class="login-container">
         <h1>Welcome to ResellU</h1>
         <div class="login-box">

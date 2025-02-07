@@ -33,7 +33,7 @@ $requests = $conn->query($requests_sql);
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/donations.css">
 </head>
-<body class="dashboard-body">
+<body class="auth-page">
     <?php include 'includes/header.php'; ?>
     
     <?php include 'includes/back_button.php'; ?>

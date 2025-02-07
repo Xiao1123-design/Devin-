@@ -58,14 +58,17 @@
 }
 
 body {
+    background: var(--white);
+    min-height: 100vh;
+}
+
+body.auth-page {
     background: 
-        linear-gradient(135deg, rgba(75, 0, 130, 0.9), rgba(102, 51, 153, 0.9)),
-        repeating-linear-gradient(45deg, 
-            rgba(255, 255, 255, 0.05) 0px, 
-            rgba(255, 255, 255, 0.05) 2px,
-            transparent 2px, 
-            transparent 8px
-        );
+        linear-gradient(135deg, rgba(75, 0, 130, 0.8), rgba(102, 51, 153, 0.8)),
+        url('/public/images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -251,6 +254,13 @@ input:focus {
 a {
     color: var(--primary-color);
     text-decoration: none;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 a:hover {

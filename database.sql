@@ -61,13 +61,13 @@ CREATE TABLE donations (
     FOREIGN KEY (donor_id) REFERENCES users(user_id)
 );
 
-CREATE TABLE reviews (
-    review_id INT PRIMARY KEY AUTO_INCREMENT,
-    reviewer_id INT NOT NULL,
-    reviewed_id INT NOT NULL,
+CREATE TABLE anonymous_ratings (
+    rating_id INT PRIMARY KEY AUTO_INCREMENT,
+    rater_id INT NOT NULL,
+    rated_id INT NOT NULL,
     rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (reviewer_id) REFERENCES users(user_id),
-    FOREIGN KEY (reviewed_id) REFERENCES users(user_id)
+    FOREIGN KEY (rater_id) REFERENCES users(user_id),
+    FOREIGN KEY (rated_id) REFERENCES users(user_id)
 );
