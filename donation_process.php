@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $conn->real_escape_string($_POST['title']);
     $description = $conn->real_escape_string($_POST['description']);
+    $category = $conn->real_escape_string($_POST['category']);
     $image_path = null;
     
     // Handle image upload if provided
@@ -51,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     
-    $sql = "INSERT INTO donations (donor_id, title, description, image_path) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO donations (donor_id, title, description, category, image_path) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isss", $_SESSION['user_id'], $title, $description, $image_path);
+    $stmt->bind_param("issss", $_SESSION['user_id'], $title, $description, $category, $image_path);
     
     if ($stmt->execute()) {
         header("Location: donations.php?success=donation_posted");

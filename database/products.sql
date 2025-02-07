@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS products (
     description TEXT,
     price DECIMAL(10,2) NOT NULL,
     category VARCHAR(50) NOT NULL,
+    condition_status VARCHAR(50) NOT NULL,
     image_path VARCHAR(255),
     status ENUM('available', 'sold', 'deleted') DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -32,10 +33,12 @@ CREATE TABLE IF NOT EXISTS donations (
     donor_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    category VARCHAR(50),
     image_path VARCHAR(255),
     status ENUM('available', 'claimed', 'deleted') DEFAULT 'available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (donor_id) REFERENCES users(user_id) ON DELETE CASCADE,
     INDEX idx_donor (donor_id),
-    INDEX idx_status (status)
+    INDEX idx_status (status),
+    INDEX idx_category (category)
 ) ENGINE=InnoDB;

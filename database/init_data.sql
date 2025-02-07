@@ -55,9 +55,9 @@ INSERT INTO donations (donor_id, title, description, category, status, image_pat
 (4, '大一教材全套', '包含高数、英语等基础课程教材，免费赠送', 'Books', 'available', '/uploads/sample/textbooks.jpg'),
 (5, '篮球', '适合新手练习用，七成新，送打气筒', 'Sports', 'available', '/uploads/sample/basketball.jpg');
 
--- Sample donation requests
-INSERT INTO donation_requests (requester_id, title, description, category, status) VALUES
-(2, '需要计算器', '准备考试用，科学计算器即可，感谢好心人捐赠', 'Electronics', 'active'),
-(3, '求冬季校服', 'M码，去年的款式都可以，感谢帮助', 'Clothing', 'active'),
-(4, '需要篮球', '用于体育课，普通训练球即可，谢谢爱心人士', 'Sports', 'active'),
-(5, '寻求考研资料', '需要英语和数学的复习资料，万分感谢帮助', 'Books', 'active');
+-- Sample donation requests (converted to donations)
+INSERT INTO donations (donor_id, title, description, category, status) VALUES
+(2, '需要计算器', '准备考试用，科学计算器即可，感谢好心人捐赠', 'Electronics', 'available'),
+(3, '求冬季校服', 'M码，去年的款式都可以，感谢帮助', 'Clothing', 'available'),
+(4, '需要篮球', '用于体育课，普通训练球即可，谢谢爱心人士', 'Sports', 'available'),
+(5, '寻求考研资料', '需要英语和数学的复习资料，万分感谢帮助', 'Books', 'available');

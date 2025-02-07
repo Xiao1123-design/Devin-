@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $conn->real_escape_string($_POST['title']);
     $category = $conn->real_escape_string($_POST['category']);
     $price = floatval($_POST['price']);
-    $condition = $conn->real_escape_string($_POST['condition']);
+    $condition_status = $conn->real_escape_string($_POST['condition_status']);
     $description = $conn->real_escape_string($_POST['description']);
     
     // Handle image upload
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "INSERT INTO products (seller_id, title, category, price, condition_status, description, image_path) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("issdss", $_SESSION['user_id'], $title, $category, $price, $condition, $description, $image_url);
+        $stmt->bind_param("issdss", $_SESSION['user_id'], $title, $category, $price, $condition_status, $description, $image_url);
         
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Product listed successfully']);

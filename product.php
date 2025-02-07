@@ -89,7 +89,7 @@ $reviews = $stmt->get_result();
                 
                 <div class="product-meta">
                     <p><strong>Category:</strong> <?php echo htmlspecialchars($product['category']); ?></p>
-                    <p><strong>Condition:</strong> <?php echo htmlspecialchars($product['condition_status']); ?></p>
+                    <p><strong>Condition Status:</strong> <?php echo htmlspecialchars($product['condition_status']); ?></p>
                     <p><strong>Listed:</strong> <?php echo date('M j, Y', strtotime($product['created_at'])); ?></p>
                 </div>
                 

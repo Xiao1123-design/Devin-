@@ -51,14 +51,14 @@ $categories = ['Books', 'Electronics', 'Furniture', 'Clothing', 'Sports', 'Other
                 </div>
                 
                 <div class="form-group">
-                    <label for="condition">Condition</label>
-                    <select id="condition" name="condition" required>
+                    <label for="condition_status">Condition</label>
+                    <select id="condition_status" name="condition_status" required>
                         <option value="">Select Condition</option>
-                        <option value="New">New</option>
-                        <option value="Like New">Like New</option>
-                        <option value="Good">Good</option>
-                        <option value="Fair">Fair</option>
-                        <option value="Poor">Poor</option>
+                        <option value="全新">全新</option>
+                        <option value="九成新">九成新</option>
+                        <option value="八成新">八成新</option>
+                        <option value="七成新">七成新</option>
+                        <option value="六成新">六成新</option>
                     </select>
                 </div>
                 

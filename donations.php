@@ -19,11 +19,11 @@ if (!$donations) {
 }
 
 // Fetch donation requests
-$requests_sql = "SELECT r.*, u.username, u.user_type 
-                FROM donation_requests r 
-                JOIN users u ON r.requester_id = u.user_id 
-                WHERE r.status = 'active' 
-                ORDER BY r.created_at DESC";
+$requests_sql = "SELECT d.*, u.username, u.user_type 
+                FROM donations d 
+                JOIN users u ON d.donor_id = u.user_id 
+                WHERE d.status = 'available' 
+                ORDER BY d.created_at DESC";
 $requests = $conn->query($requests_sql);
 if (!$requests) {
     die("Query failed: " . $conn->error);
