@@ -1,5 +1,27 @@
 :root {
-    /* Back Button */
+    /* Main Colors - Purple Theme */
+    --primary-dark: #4B0082;    /* Deep Purple */
+    --primary-color: #663399;   /* Medium Purple */
+    --primary-light: #9966CC;   /* Light Purple */
+    --primary-gradient: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    
+    /* Secondary Colors */
+    --white: #ffffff;
+    --beige: #F5F5DC;
+    --light-gray: #E8E8E8;
+    
+    /* Accent Color */
+    --accent-color: #FFD700;    /* Gold */
+    
+    /* Additional UI Colors */
+    --text-color: #333333;
+    --error-color: #DC3545;
+    --success-color: #28A745;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --overlay-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Back Button */
 .btn-back {
     display: inline-flex;
     align-items: center;
@@ -119,28 +141,6 @@
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
-}
-
-/* Main Colors - Purple Theme */
-    --primary-dark: #4B0082;    /* Deep Purple */
-    --primary-color: #663399;   /* Medium Purple */
-    --primary-light: #9966CC;   /* Light Purple */
-    --primary-gradient: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
-    
-    /* Secondary Colors */
-    --white: #ffffff;
-    --beige: #F5F5DC;
-    --light-gray: #E8E8E8;
-    
-    /* Accent Color */
-    --accent-color: #FFD700;    /* Gold */
-    
-    /* Additional UI Colors */
-    --text-color: #333333;
-    --error-color: #DC3545;
-    --success-color: #28A745;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --overlay-color: rgba(0, 0, 0, 0.5);
 }
 
 * {
