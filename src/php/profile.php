@@ -62,12 +62,23 @@ if ($user === null) {
             // Fetch ratings
             $rating_sql = "SELECT AVG(rating) as avg_rating FROM anonymous_ratings WHERE rated_id = ?";
             $stmt = $conn->prepare($rating_sql);
-            if (!$stmt->bind_param("i", $user_id) || !$stmt->execute()) {
-                throw new Exception("获取评分失败");
+            if (!$stmt) {
+                throw new Exception("SQL准备失败: " . $conn->error);
             }
-            $result = $stmt->get_result()->fetch_assoc();
-            $avg_rating = isset($result['avg_rating']) ? number_format($result['avg_rating'], 1) : '暂无评分';
+            if (!$stmt->bind_param("i", $user_id)) {
+                throw new Exception("参数绑定失败: " . $stmt->error);
+            }
+            if (!$stmt->execute()) {
+                throw new Exception("SQL执行失败: " . $stmt->error);
+            }
+            $result = $stmt->get_result();
+            if (!$result) {
+                throw new Exception("获取结果失败: " . $stmt->error);
+            }
+            $row = $result->fetch_assoc();
+            $avg_rating = isset($row['avg_rating']) ? number_format($row['avg_rating'], 1) : '暂无评分';
         } catch (Exception $e) {
+            error_log("Rating fetch error: " . $e->getMessage());
             $avg_rating = '暂无评分';
         }
         
